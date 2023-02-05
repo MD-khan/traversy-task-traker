@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Header  title="Task Traker"/>
+    <AddTask @add-task="addTask" />
     <Tasks 
       @toggle-reminder="toggleReminder"
       @delete-task="deleteTask" :tasks="tasks"
@@ -11,12 +12,14 @@
 <script>
 import Header from './components/Header'
 import Tasks from './components/Tasks.vue'
+import AddTask from './components/AddTask.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    Tasks
+    Tasks,
+    AddTask
   },
   data() {
     return {
@@ -24,6 +27,11 @@ export default {
     }
   },
   methods: {
+
+    addTask(task){
+      this.tasks = [...this.tasks, task];
+    },
+
     deleteTask(id){
       this.tasks = this.tasks.filter((task) => task.id !==id)
     },
@@ -51,28 +59,28 @@ export default {
     this.tasks = [
       {
         id:1,
-        name: 'Replace windows 7 desktop',
+        text: 'Replace windows 7 desktop',
         day: "Feb 7 at 2:30pm",
         reminder: false
       },
 
       {
         id:2,
-        name: 'Printer connection issue',
+        text: 'Printer connection issue',
         day: "Feb 8 at 2:30pm",
         reminder: true
       },
 
       {
         id:3,
-        name: 'Fix internet connection issue',
+        text: 'Fix internet connection issue',
         day: "Feb 9 at 2:30pm",
         reminder: false
       },
 
       {
         id:4,
-        name: 'Deploy new chrombox',
+        text: 'Deploy new chrombox',
         day: "Feb 10 at 2:30pm",
         reminder: true
       },
