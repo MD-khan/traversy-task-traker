@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <Header  title="Task Traker"/>
-    <Tasks @delete-task="deleteTask" :tasks="tasks"/>
+    <Tasks 
+      @toggle-reminder="toggleReminder"
+      @delete-task="deleteTask" :tasks="tasks"
+    />
   </div>
 </template>
 
@@ -23,7 +26,7 @@ export default {
   methods: {
     deleteTask(id){
       this.tasks = this.tasks.filter((task) => task.id !==id)
-    }
+    },
   //  This is from chatGPT
     // deleteTask(id) {
     // const index = this.tasks.findIndex(task => task.id === id);
@@ -31,6 +34,18 @@ export default {
     //   this.tasks.splice(index, 1);
     // }
   //}
+  // toggleReminder(id) {
+  //   this.tasks = this.tasks.map((task)=>task.id === id ? {...task, reminder: !task.reminder}: task) 
+  // }
+
+  toggleReminder(id) {
+  const index = this.tasks.findIndex(task => task.id === id);
+  if (index !== -1) {
+    const task = this.tasks[index];
+    this.tasks.splice(index, 1, { ...task, reminder: !task.reminder });
+  }
+}
+
   },
   created(){
     this.tasks = [
